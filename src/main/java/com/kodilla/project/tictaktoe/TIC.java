@@ -163,13 +163,19 @@ public class TIC extends Application {
                         turnX = false;
                         checkState();
                     } else if (event.getButton() == MouseButton.SECONDARY) {
-                        Random random = new Random();
-                        if (turnX) return;
-
-                            board[random.nextInt(3)][random.nextInt(3)].drawO();
-                            turnX = true;
-                            checkState();
+                            do{
+                            Random random = new Random();
+                            int i = random.nextInt(3);
+                            int j = random.nextInt(3);
+                            if (turnX) return;
+                            if (board[i][j].getValue()!="X" && board[i][j].getValue()!="O"){
+                                board[i][j].drawO();
+                                turnX = true;
+                                checkState();
+                            }
+                        }while (turnX);
                     }
+
                 });
             }
 
