@@ -22,6 +22,7 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static javafx.scene.paint.Color.*;
 
@@ -31,7 +32,7 @@ public class TIC extends Application {
     private boolean turnX = true;
     private Tile[][] board = new Tile[3][3];
     private List<Combo> combos = new ArrayList<>();
-
+    private boolean turn;
     private Pane root = new Pane();
     Players playerOne = new Players("Tomek",0);
     Players playerTwo = new Players("Terminator",0);
@@ -162,38 +163,40 @@ public class TIC extends Application {
                         turnX = false;
                         checkState();
                     } else if (event.getButton() == MouseButton.SECONDARY) {
-                        if (turnX)
-                            return;
+                        Random random = new Random();
+                        if (turnX) return;
 
-                        drawO();
-                        turnX = true;
-                        checkState();
+                            board[random.nextInt(3)][random.nextInt(3)].drawO();
+                            turnX = true;
+                            checkState();
                     }
                 });
             }
 
-            public double getCenterX() {
-                return getTranslateX() + 100;
+
+                public double getCenterX () {
+                    return getTranslateX() + 100;
+                }
+
+                public double getCenterY () {
+                    return getTranslateY() + 100;
+                }
+
+                public String getValue () {
+                    return text.getText();
+                }
+
+                private void drawX () {
+                    text.setFill(RED);
+                    text.setText("X");
+                }
+
+                private void drawO () {
+                    text.setFill(GREEN);
+                    text.setText("O");
+                }
             }
 
-            public double getCenterY() {
-                return getTranslateY() + 100;
-            }
-
-            public String getValue() {
-                return text.getText();
-            }
-
-            private void drawX() {
-                text.setFill(RED);
-                text.setText("X");
-            }
-
-            private void drawO() {
-                text.setFill(GREEN);
-                text.setText("O");
-            }
-        }
 
 
         public static void main(String[] args) {
